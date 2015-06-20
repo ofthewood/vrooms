@@ -1,0 +1,186 @@
+<template name="timeslots">
+    <div id="lastFreeMeetings">
+        <div class="container">
+            {{> contactForm}}
+            {{> loginForm }}
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Agenda disponibilités.</h5>
+
+                    <div class="ibox-tools">
+                        <small><i class="fa fa fa-clock-o"></i>{{lastUpdate}}</small>
+                    </div>
+                </div>
+
+                {{#each timeslotsList }}
+                    {{#if isNewDay}}
+                        <div class="ibox-content ibox-heading">
+                            <h3>{{ formatedDay horaire }}</h3>
+                        </div>
+                    {{/if}}
+                    <div class="ibox-content timeline-item">
+                        <div class="row">
+                            <div class="col-xs-3 col-sm-3 date">
+                                {{ shortTimeslot horaire }}
+                            </div>
+                            <div class="col-xs-3 col-sm-3 content item-salle">
+                                        <span class="views-number">
+                                            {{iNbSalle}}
+                                        </span>
+
+                                <div>
+                                    <small>Salles</small>
+                                    <i class="fa fa-chevron-up {{isShowed "salle"}}"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 content item-box">
+                                        <span class="views-number">
+                                            {{iNbBox}}
+                                        </span>
+
+                                <div>
+                                    <small>Box</small>
+                                    <i class="fa fa-chevron-up {{isShowed "box"}}"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-3 content item-autre">
+                                        <span class="views-number">
+                                            {{iNbAutre}}
+                                        </span>
+
+                                <div>
+                                    <small>Autres</small>
+                                    <i class="fa fa-chevron-up {{isShowed "autre"}}"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{#if hasToShowed "salle"}}
+                        <div class="ibox-content ibox-freerooms">
+                            {{#each listSalle }}
+                                {{ decodeSalleName }}
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <p><span
+                                                class="badge {{badgeColor}}">{{place}}</span> {{infoName}} {{#if demiheure}}
+                                            <b>(+1/2h)</b> {{/if}}
+                                            <a class="btn btn-xs btn-white pull-right sendMail"><i
+                                                    class="fa fa-envelope"></i>
+                                                Send </a>
+                                            <a>  </a>
+                                            <a class="btn btn-xs btn-white pull-right uploadCalendar" href="{{ icsfile }}"><i
+                                                    class="fa fa-upload"></i>
+                                                Open </a>
+                                            {{#if counter}}<span class="badge badge-plain">{{counter}}</span>{{/if}}
+                                        </p>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                    {{#if hasToShowed "box"}}
+                        <div class="ibox-content ibox-freerooms">
+                            {{#each listBox }}
+                                {{ decodeSalleName }}
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <p><span class="badge {{badgeColor}}">{{place}}</span> {{infoName}}
+                                            <a class="btn btn-xs btn-white pull-right sendMail"><i
+                                                    class="fa fa-envelope"></i>
+                                                Send </a>
+                                            <a>  </a>
+                                            <a class="btn btn-xs btn-white pull-right uploadCalendar" href="{{ icsfile }}"><i
+                                                    class="fa fa-upload"></i>
+                                                Open </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                    {{#if hasToShowed "autre"}}
+                        <div class="ibox-content ibox-freerooms">
+                            {{#each listAutre }}
+                                {{ decodeSalleName }}
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <p><span class="badge {{badgeColor}}">{{place}}</span> {{infoName}}
+                                            <a class="btn btn-xs btn-white pull-right sendMail"><i
+                                                    class="fa fa-envelope"></i>
+                                                Send </a>
+                                            <a>  </a>
+                                            <a class="btn btn-xs btn-white pull-right uploadCalendar" href="{{ icsfile }}"><i
+                                                    class="fa fa-upload"></i>
+                                                Open </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="tutu">
+    <div class="modal fade in show" id="delConfirmDlg" tabindex="-1" role="dialog" aria-labelledby="test">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="removeproject">Remove Project</h4>
+                </div>
+                <div class="modal-body">
+                    {{> _forgotPasswordForm}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</template>
+<template name="tutu2">
+    <div class="modal fade in show" id="delConfirmDlg" tabindex="-1" role="dialog" aria-labelledby="test">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="removeproject">Remove Project</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>This will remove this project, and any linked records.</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary deleteConfirmed">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="loginButtons2">
+    <div id="login-buttons" class="login-buttons-dropdown-align-{{align}}">
+        {{#if currentUser}}
+            {{#if loggingIn}}
+            {{! We aren't actually logged in yet; we're just setting Meteor.userId
+                optimistically during an at-startup login-with-token. We expose this
+                state so other UIs can treat it specially, but we'll just treat it
+                as logged out. }}
+                {{#if dropdown}}
+                    {{> _loginButtonsLoggingIn }}
+                {{else}}
+                    <div class="login-buttons-with-only-one-button">
+                        {{> _loginButtonsLoggingInSingleLoginButton }}
+                    </div>
+                {{/if}}
+            {{else}}
+                {{> _loginButtonsLoggedIn}}
+            {{/if}}
+        {{else}}
+            {{> _loginButtonsLoggedOut}}
+        {{/if}}
+    </div>
+</template>

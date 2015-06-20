@@ -1,0 +1,48 @@
+<template name="meetingsList">
+    <div id="usersListPage" class="page">
+        <div class="container">
+            <div class="panel panel-default">
+                <button class="salles">Salles</button>
+                <button class="box">Box</button>
+                <button class="visio">Visio</button>
+                <BR>{{filtre}}<BR>
+                <button class="prev">prev</button>
+                {{meetingDay}}
+                <button class="next">next</button>
+                <div class="panel-heading">
+                    Créneaux Dispos   {{getMeetingsCount}} {{filtre}}
+                </div>
+                {{meetingsListCursor}}
+                {{#each creneaux}}
+                    <h2>{{this}}H00</h2>
+                    {{#each meetingListByHoraire this }}
+                            {{> meetingsListItem1}}
+                    {{/each}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+     {{> lastFreeMeetings }}
+</template>
+
+<template name="meetingsListItem1">
+    <button class="salles">{{shortName}}</button>
+</template>
+
+<template name="meetingsListItem">
+    <tr class="userListItem">
+        <td>
+            {{ name }}
+        </td>
+        <td>
+            {{ FormateCreneau horaire }}
+        </td>
+        <td>
+            {{ FormateCreneau debut}}
+        </td>
+        <td>
+            <button class="fa fa-times"></button>
+            <button class="fa fa-eye"></button>
+        </td>
+    </tr>
+</template>

@@ -1,0 +1,57 @@
+<template name="roomsList">
+    <div id="usersListPage" class="page">
+        <div class="container">
+            <div class="panel panel-default">
+                <button class="salles">Salles</button>
+                <button class="box">Box</button>
+                <button class="visio">Visio</button>
+                <div class="panel-heading">
+                    Users List   {{getUserCount}}  {{filtre}}
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                username
+                            </th>
+                            <th>
+                                updatedAt
+                            </th>
+                            <th>
+                                nb créneaux
+                            </th>
+                            <th>
+                                actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each usersList }}
+                        {{> roomListItem}}
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="roomListItem">
+    <tr class="roomListItem">
+        <td>
+            {{ name }}
+        </td>
+        <td>
+            {{ formatedDate }}
+        </td>
+        <td>
+            {{ NbMeetingsFree}}
+        </td>
+        <td>
+            <button class="fa fa-times"></button>
+            <button class="fa fa-eye"></button>
+        </td>
+    </tr>
+</template>

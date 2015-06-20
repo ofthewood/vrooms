@@ -1,0 +1,76 @@
+<template name="lastFreeMeetings">
+    <div id="lastFreeMeetings" class="page">
+        <div class="container">
+            {{> contactForm}}
+            {{> loginForm }}
+            <div class="panel panel-default">
+                <div class="ibox-title">
+                    <h5>Nouvelles disponibilités.</h5>
+
+                    <div class="ibox-tools">
+                        <small><i class="fa fa fa-clock-o"></i>{{lastUpdate}}</small>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                Salle / Box
+                            </th>
+                            <th>
+                                Créneau
+                            </th>
+                            <th>
+                                Depuis
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each meetingsList }}
+                            {{ decodeSalleName }}
+                            <tr class="roomListItem">
+                                <td>
+                                    <p><span class="badge {{badgeColor}}">{{place}}</span> {{infoName}} {{#if demiheure}}<b>(+1/2h)</b> {{/if}}</p>
+                                </td>
+                                <td>
+                                    {{ formatedDate debut }}
+                                </td>
+                                <td>
+                                    {{ relativeDate dateFree}}
+                                </td>
+                                <td>
+                                    <a class="btn btn-xs btn-white pull-right sendMail"><i class="fa fa-envelope"></i>
+                                        Send </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="lastFreeMeetingsItems">
+    <tr class="roomListItem">
+        <td>
+            {{ name }}
+        </td>
+        <td>
+            {{  horaire }}
+        </td>
+        <td>
+            {{  dateFree}}
+        </td>
+        <td>
+            <button class="fa fa-times"></button>
+            <button class="fa fa-eye"></button>
+        </td>
+    </tr>
+</template>
