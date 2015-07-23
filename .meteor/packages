@@ -5,5 +5,21 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
-insecure
+momentjs:moment
+underscore
+email
+iron:router
+nimble:restivus
+less
+natestrauser:font-awesome
+jquery
+fastclick
+ashutosh:email-att
+
+
+#npm-container
+accounts-password
+accounts-ui
+datariot:ganalytics
+zimme:active-route
+http
