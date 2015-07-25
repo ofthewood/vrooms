@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 App.accessRule('http://192.168.1.25:3000/*');
 App.info({
     // the bundle ID must be unique across the entire app store
@@ -24,6 +23,3 @@ App.launchScreens({
     // Android
     'android_ldpi_portrait': 'public/Android/res/drawable-ldpi/screen.png'
 });
-=======
-App.accessRule('http://192.168.1.25:3000/*');
->>>>>>> 753bf6645259c6d32e7640be976031cc8fdf040a
