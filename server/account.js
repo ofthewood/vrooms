@@ -7,3 +7,4 @@ Meteor.methods({
         Accounts.createUser(user);
     }
 });
+

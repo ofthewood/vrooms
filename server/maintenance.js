@@ -8,6 +8,40 @@ var lastday = lastday || moment().day();
 //var delay = 10 * 1000; // 10 s
 var delay = 15 * 60 * 1000; // 5 min
 
+
+
+
+analyseRooms = function(){
+    var count = 0;
+    Rooms.find().forEach(function (room) {
+        try {
+            roomProperties = Agenda.decodeRoomName(room.name);
+        } catch(e){
+            console.log(room.name + ' ' + e); // on gère l'erreur
+            return ;
+        }
+        console.log("name " + count + ": " + room.name + "  /" + roomProperties.categorie + "/" +
+                    roomProperties.visio + '  |' + roomProperties.place + '|'  +  roomProperties.infoName );
+       // console.log(roomProperties);
+
+        count += 1;
+    });
+
+};
+
+PurgeRooms = function(){
+    line = "Suppression des Timeslots, nb: " + Timeslots.remove({});
+    console.log(line);
+    line = "Suppression des meetings, nb: " + Meetings.remove({});
+    console.log(line);
+    line = "Suppression des rooms, nb: " + Rooms.remove({});
+    console.log(line);
+
+};
+
+//analyseRooms();
+// PurgeRooms();
+
 Meteor.setInterval(function () {
     if (lastday == moment().day()) {
         return;
@@ -47,7 +81,7 @@ Meteor.setInterval(function () {
         line = 'pb de maj sur ' + cursor[i].name + ' last update: ' + '  ' + moment(cursor[i].updatedAt).format('ddd LLL');
         console.log(line);
         content = content + "\n" + line;
-        line = 'Suppression des meetins de la salle, Nb:' + Meetings.remove({mail: cursor[i].mail});
+        line = 'Suppression des meetings de la salle, Nb:' + Meetings.remove({mail: cursor[i].mail});
         console.log(line);
         content = content + "\n" + line;
     } // fin boucle
@@ -78,7 +112,7 @@ Meteor.setInterval(function () {
         line = 'Recalcul  ' + moment(cursor2[i].horaire).format('ddd LLL');
         console.log(line);
         content = content + "\n" + line;
-        Meteor.roomservice.updSyntheseHoraire(cursor2[i].horaire);
+        Agenda.updSyntheseHoraire(cursor2[i].horaire);
     }
 
 
@@ -103,8 +137,8 @@ var recalculAllTimeslots = function () {
         line = 'Recalcul  ' + moment(cursor[i].horaire).format('ddd LLL');
         console.log(line);
         content = content + "\n" + line;
-        Meteor.roomservice.updSyntheseHoraire(cursor[i].horaire);
+        Agenda.updSyntheseHoraire(cursor[i].horaire);
 
     } // fin boucle
 
-}
+};

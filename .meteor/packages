@@ -9,7 +9,6 @@ momentjs:moment
 underscore
 email
 iron:router
-nimble:restivus
 less
 natestrauser:font-awesome
 jquery
@@ -17,9 +16,39 @@ fastclick
 ashutosh:email-att
 
 
-#npm-container
 accounts-password
 accounts-ui
 datariot:ganalytics
 zimme:active-route
 http
+nimble:restivus@0.6.5
+
+ofthewood:moment-locale-fr
+ofthewood:vrooms-desktop
+ofthewood:vrooms-mobile
+ofthewood:vrooms-base
+
+
+matb33:collection-hooks
+aldeed:autoform
+aldeed:collection2
+
+
+
+# demo ionic
+#iron:router
+zimme:iron-router-active
+anti:fake
+#matb33:collection-hooks
+#aldeed:collection2
+#aldeed:autoform
+#meteoric:ionic-sass
+#meteoric:ionicons-sass
+#meteoric:ionic
+#meteoric:autoform-ionic
+useraccounts:ionic
+#standard-minifiers
+tracker
+#ofthewood:safe-reload
+
+#hello

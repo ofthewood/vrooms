@@ -24,19 +24,21 @@
  ],
  text: "There's an attachment in this email. See the attachment."});
  */
+
+
 // Global API configuration
-Restivus.configure({
-    useAuth: true,
+var Api = new Restivus({
+    useDefaultAuth: true,
     prettyJson: true
 });
-
+//
 // Generates: GET, POST, DELETE on /api/items and GET, PUT, DELETE on
 // /api/items/:id for Items collection
-Restivus.addCollection(Rooms);
-Restivus.addCollection(Meetings);
-Restivus.addCollection(Timeslots);
+Api.addCollection(Rooms);
+Api.addCollection(Meetings);
+Api.addCollection(Timeslots);
 
-Restivus.addRoute('salles', {authRequired: false}, {
+Api.addRoute('salles', {authRequired: false}, {
     get: function () {
         var salle = Rooms.findOne(this.urlParams.id);
         if (salle) {
@@ -50,36 +52,16 @@ Restivus.addRoute('salles', {authRequired: false}, {
     post: {
         //roleRequired: ['author', 'admin'],
         action: function () {
-            var meetings, oldMeetings, salle;
-            this.bodyParams.updatedAt = moment().toDate();
-            salle = Rooms.findOne({name: this.bodyParams.name});
-            meetings = Meteor.roomservice.getMeetingsFromAgenda(this.bodyParams.agenda);
+            var meetings;
+            meetings = Agenda.getMeetingsFromAgenda(this.bodyParams.agenda);
+            Agenda.roomsUpdate(this.bodyParams);
 
-            if (salle) {
-                if (JSON.stringify(salle.agenda) != JSON.stringify(this.bodyParams.agenda)) {
-                    this.bodyParams.createdAt = salle.createdAt;
-                    Rooms.update(salle._id, this.bodyParams);
-                }
-            } else {
-                console.log("Insert->" + this.bodyParams.name);
-                this.bodyParams.createdAt = moment().toDate();
-                var id = Rooms.insert(this.bodyParams);
-            }
-
-
-            Meteor.roomservice.meetingsUpdate(meetings, this.bodyParams.name, this.bodyParams.mail);
+            //Logs.insert({date: moment().toDate(),desc: this.bodyParams.name + "  " + meetings.length});
+            Agenda.meetingsUpdate(meetings, this.bodyParams.name, this.bodyParams.mail);
+            // on met à jour le lastupdate ...
+            Agenda.updateLastupdate ();
 
             return {status: "success", data: null};
-            // source https://github.com/SUPINFOLaboDev/Fevent/blob/b31cd5d9f4a967da276463706054996f32ae135a/server/lib/api.js
-
-            /*var post = Posts.findOne(this.urlParams.id);
-             if (post) {
-             return {status: "success", data: post};
-             }
-             return {
-             statusCode: 400,
-             body: {status: "fail", message: "Unable to add post"}
-             };*/
         }
     },
     delete: {
@@ -104,7 +86,7 @@ Meteor.users.allow(
         }
     });
 
-Restivus.addRoute('toto', {authRequired: false}, {
+Api.addRoute('users', {authRequired: false}, {
     get: function () {
         var salle = Meteor.users.find({}, {fields: {emails: 1}}).fetch();
         if (salle) {
@@ -134,7 +116,7 @@ Router.map(function () {
         action: function () {
             console.log("meeting Id: " + this.request.query);
 
-            var meeting = Meetings.findOne({_id: this.request.query.id});
+                    var meeting = Meetings.findOne({_id: this.request.query.id});
             if (!meeting) {
                 return;
                 console.log('no meeting found !');
@@ -162,3 +144,6 @@ Router.map(function () {
         }
     });
 });
+
+
+console.log(' -- ' +   moment().format('YYYYMMDD HH:mm:ss') );

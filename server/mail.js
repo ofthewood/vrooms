@@ -2,8 +2,13 @@
 //$headers .= "Content-class: urn:content-classes:calendarmessage\n";
 // http://sharepoint.stackexchange.com/questions/119698/how-to-send-meeting-request-to-user-from-sharepoint
 
-Meteor.methods({
 
+
+Meteor.methods({
+    isDevEnv: function(){
+        console.log("environnement : ", process.env.NODE_ENV);
+        return process.env.NODE_ENV === "development";
+    },
     sendMeetingMailo: function (id, userMail) {
         var meeting = Meetings.findOne({_id: id});
         if (!meeting) {
@@ -74,8 +79,8 @@ Meteor.methods({
         var options = {
             to: "vdubois@bouyguestelecom.fr",
             from: "noreply@votresuivi.fr",
-            subject: "[Vrooms FD] " + content.substring(0, 20),
-            text: content + '\n' + userMail
+            subject: "[Vrooms FB] " + content.substring(0, 20),
+            text: content + '\n\n Email: ' + userMail
         };
         Email.send(options);
         return;
