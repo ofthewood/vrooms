@@ -1,5 +1,5 @@
 /*
- toute les nuits on envoie un mail r�capitulatif ...
+ toute les nuits on envoie un mail récapitulatif ...
 
  */
 

@@ -4,9 +4,9 @@ if (this.process.env.NODE_ENV === 'production') {
     App.info({
         // the bundle ID must be unique across the entire app store
         // usually reverse domains of the creators are used
-        id: 'technopole.mrooms',
-        name: 'leTec',
-        version: '1.0.0',
+        id: 'technopole.rooms',
+        name: 'leTech',
+        version: '1.0.1',
         description: 'reservation de salle au Technopole Bouyguestelecom',
         author: 'Vincent Dubois',
         email: 'vdubois@bouyguestelecom.fr',
@@ -18,9 +18,9 @@ else {
     App.info({
         // the bundle ID must be unique across the entire app store
         // usually reverse domains of the creators are used
-        id: 'technopole.mroomsDev',
-        name: 'leTecDev',
-        version: '1.0.0',
+        id: 'technopole.roomsDev',
+        name: 'leTechDev',
+        version: '1.0.1',
         description: 'reservation de salle au Technopole Bouyguestelecom',
         author: 'Vincent Dubois',
         email: 'vdubois@bouyguestelecom.fr',

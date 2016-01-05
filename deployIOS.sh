@@ -38,6 +38,9 @@ delAndCp
 project=vrooms-mobile
 delAndCp
 
+project=vrooms-desktop
+delAndCp
+
 project=safe-reload
 delAndCp
 
